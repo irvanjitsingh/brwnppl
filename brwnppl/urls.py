@@ -5,6 +5,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'fbapp.auth.authenticate'),
-    url(r'^form/', 'fbapp.form.form'),
+    url(r'^form/', 'fbapp.home.home'),
     url(r'^oauth/', 'fbapp.auth.oauth'),
+    url(r'^record/', 'fbapp.auth.oauth'),
 )
