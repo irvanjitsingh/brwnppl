@@ -3,8 +3,16 @@
 
       <div class="hero-unit">
         <h1><h3>Hey {{ name }}, welcome to Brwnppl Bhangra</h3></h1>
-        <p>
-        </p>
+        <article>
+            <video  id="video" width="640" height="480" autoplay></video>
+            <section>
+                <button id="btnStart">Start video</button>
+                <button id="btnStop">Stop video</button>            
+                <button id="btnPhoto">Take a photo</button>
+            </section>
+            <canvas id="canvas" width="640" height="480"></canvas>
+            <img id="target" style="display: inline;"/>
+        </article> 
       </div>
 
       <div class="row">
@@ -13,8 +21,7 @@
           <p>...</p>
 
           <h2>heading</h2>
-          <p>... </p>
-          <a href="http://bpbhangra.herokuapp.com/record">Record some bhangra!</a>    
+          <p>... </p> 
         </div>
       </div>
 

@@ -7,5 +7,4 @@ urlpatterns = patterns('',
     url(r'^$', 'fbapp.auth.authenticate'),
     url(r'^form/', 'fbapp.core.home'),
     url(r'^oauth/', 'fbapp.auth.oauth'),
-    url(r'^record/', 'fbapp.core.record'),
 )

@@ -11,6 +11,3 @@ def home(request):
 		name = User.objects.get(uid=request.session.get('uid')).first_name
 	c = RequestContext(request, {'name': name})
 	return render_to_response('home.html', c)
-
-def record(request):
-	return render_to_response('video.html')
