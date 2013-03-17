@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Brwnppl Bhangra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Brwnppl Bhangra">
+
+    <!--styles-->
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px;
+      }
+    </style>
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- #4B6599-->
+    <div class="container" style="color:#4B6599">
+      <br><br>
+      <hr><h1><center>Brwnppl Bhangra</center></h1><hr>
+
+      {% block content %} {% endblock %}
+
+      <footer>
+        <hr>
+        <p>&copy; 2013 Irvanjit Gill. All rights reserverd.</p>
+      </footer>
+    </div>
+
+    <!--scripts-->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+  </body>
+</html>
