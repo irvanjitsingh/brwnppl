@@ -10,9 +10,6 @@ import pdb
 import json as simplejson
 import base64
 import os
-import shutil
-import lzw
-
 
 class LogThread(threading.Thread):
      def __init__(self,factory):
