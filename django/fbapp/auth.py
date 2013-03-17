@@ -7,9 +7,9 @@ from django.contrib.auth.models import User
 from fbapp.models import User
 import requests, urlparse, random, pdb
 
-app_id = '...'
-app_secret = '...'
-redirect_uri = 'http://bpbhangra.herokuapp.com/oauth/'
+app_id = '222454974560719'
+app_secret = '1552e6e22a7ee7cce71585805af34a3d'
+redirect_uri = 'https://bpbhangra.herokuapp.com/oauth/'
 permissions = 'publish_stream'
 
 
