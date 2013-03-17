@@ -29,15 +29,12 @@ class EchoServerProtocol(WebSocketServerProtocol):
   def onMessage(self, msg, binary):
     jsonmsg=simplejson.loads(msg)
     userID=jsonmsg["user"]
-    fileframe=10000;
     if jsonmsg["frame"]==1:
       if os.path.exists(userID):
         shutil.rmtree(userID)
       os.makedirs(userID)
-    else:
-      fileframe=fileframe+int(jsonmsg["frame"])
-
-    output=open(userID+"/"+str(fileframe)+".jpg","wb")
+    fileframe=str(jsonmsg["frame"])
+    output=open(userID+"/"+fileframe.zfill(5)+".jpg","wb")
     output.write(base64.b64decode(jsonmsg["payload"]))
     output.close()
 
