@@ -10,6 +10,7 @@ import pdb
 import json as simplejson
 import base64
 import os
+import shutil
 
 class LogThread(threading.Thread):
      def __init__(self,factory):
@@ -26,30 +27,16 @@ class LogThread(threading.Thread):
 class EchoServerProtocol(WebSocketServerProtocol):
 
   def onMessage(self, msg, binary):
- #   rm=lzw.readbytes(msg)
-  #  dm=lzw.decompress(rm)
-   # string=""
-    #for i in dm:
-     # string=string+i
-   # pdb.set_trace()
     jsonmsg=simplejson.loads(msg)
- #   pdb.set_trace()
     userID=jsonmsg["user"]
     if jsonmsg["frame"]==1:
       if os.path.exists(userID):
         shutil.rmtree(userID)
       os.makedirs(userID)
-    frameLength=len(str(jsonmsg["frame"]))
-    fileframe=jsonmsg["frame"]*pow(10,5-frameLength) # no check for maximum
-  #  print str(fileframe)
-#    pdb.set_trace()
-    output=open(userID+"/"+str(fileframe)+".jpg","wb")
+    fileframe=str(jsonmsg["frame"])
+    output=open(userID+"/"+fileframe.zfill(5)+".jpg","wb")
     output.write(base64.b64decode(jsonmsg["payload"]))
     output.close()
- #   print msg
-#    output=open("test.jpg","wb")
- #   output.write(base64.b64decode(msg))
-  #  output.close()
 
 if __name__ == '__main__': 	
    print "starting"
