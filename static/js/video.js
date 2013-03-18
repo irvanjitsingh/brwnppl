@@ -23,16 +23,17 @@ $(document).ready(function() {
             audio: true
         };
     window.socket=null;
-    window.host="ws://192.168.1.127:9000";
+    window.host="ws://184.106.162.189:9000";
     window.oFile=new FileReader();
     window.frameCounter=1;
     window.videoTimer=null;
+    window.userid=$("#userid").html();
 
     oFile.onload = function (oFREvent){
 
         var jsonObj={};
         jsonObj["frame"]=frameCounter;
-        jsonObj["user"]="Harnek";
+        jsonObj["user"]=userid;
         jsonObj["payload"]=btoa(oFREvent.target.result);
         tmp=JSON.stringify(jsonObj);
         socket.send(tmp);
