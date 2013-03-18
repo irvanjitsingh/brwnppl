@@ -64,7 +64,7 @@ $(document).ready(function() {
                     console.log("Openened connection to websocket");
                     videoTimer = setInterval(
                     function () {
-                        context.drawImage(video, 0, 0, 640, 480);
+                        context.drawImage(video, 0, 0, 320, 240);
                         var data = $("#canvas").get()[0].toDataURL('image/jpeg', 0.5);
                         newblob = dataURItoBlob(data);
                         oFile.readAsBinaryString(newblob);
