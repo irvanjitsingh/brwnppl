@@ -4,7 +4,8 @@ h6sidhu
 ILuv2PlayB@11()!
 
 ssh ip:
-184.106.162.189
+#old184.106.162.189
+184.106.79.43
 
 ssh pass:
-wSR6b6r4Dbhangra
+JofwG661Fbhangra
