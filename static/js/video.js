@@ -70,7 +70,7 @@ function dataURItoBlob(dataURI) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
     window.socket=null;
-    window.host="ws://192.168.1.127:9000";
+    window.host="ws://108.171.175.239:9000";
     window.oFile=new FileReader();
     window.frameCounter=1;
     window.videoTimer=null;
