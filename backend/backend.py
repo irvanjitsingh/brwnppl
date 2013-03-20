@@ -14,38 +14,23 @@ import shutil
 import subprocess
 
 class Command(object):
-    def __init__(self, cmd,user):
+    def __init__(self, user):
         self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
         self.process = None
 
     def run(self, timeout):
         def target():
-            print 'Thread started'
             self.process = subprocess.Popen(self.cmd, shell=True)
             self.process.communicate()
-            print 'Thread finished'
-
+      
         thread = threading.Thread(target=target)
         thread.start()
 
         thread.join(timeout)
         if thread.is_alive():
-            print 'Terminating process'
             self.process.terminate()
             thread.join()
         print self.process.returncode
-
-class LogThread(threading.Thread):
-     def __init__(self,factory):
-        threading.Thread.__init__(self)
-        self.factory=factory
-
-     def run(self):
-   	  	count=0
-   		while(count==0):
-   			p="Current Connections:"+str(self.factory.getConnectionCount())
-			print p 
-			time.sleep(5)
  
 class EchoServerProtocol(WebSocketServerProtocol):
 
@@ -65,6 +50,13 @@ if __name__ == '__main__':
    print "starting"
    factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
    factory.protocol = EchoServerProtocol
-   thread1 = LogThread(factory)
    listenWS(factory)   
    reactor.run()
+
+
+
+
+
+   #command = Command("echo 'Process started'; sleep 2; echo 'Process finished'")
+#command.run(timeout=3)
+#command.run(timeout=1)
