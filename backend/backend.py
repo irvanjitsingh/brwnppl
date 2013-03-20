@@ -15,7 +15,7 @@ import subprocess
 
 class Command(object):
     def __init__(self, cmd,user):
-        self.cmd = "avconv -i /"+user+"/%05d.jpg -c:v libx264 -r 30 /"+user+"/foo.mp4"
+        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 /"+user+"/foo.mp4"
         self.process = None
 
     def run(self, timeout):
