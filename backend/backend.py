@@ -11,6 +11,29 @@ import json as simplejson
 import base64
 import os
 import shutil
+import subprocess
+
+class Command(object):
+    def __init__(self, cmd,user):
+        self.cmd = "avconv -i /"+user+"/%05d.jpg -c:v libx264 -r 30 /"+user+"/foo.mp4"
+        self.process = None
+
+    def run(self, timeout):
+        def target():
+            print 'Thread started'
+            self.process = subprocess.Popen(self.cmd, shell=True)
+            self.process.communicate()
+            print 'Thread finished'
+
+        thread = threading.Thread(target=target)
+        thread.start()
+
+        thread.join(timeout)
+        if thread.is_alive():
+            print 'Terminating process'
+            self.process.terminate()
+            thread.join()
+        print self.process.returncode
 
 class LogThread(threading.Thread):
      def __init__(self,factory):
