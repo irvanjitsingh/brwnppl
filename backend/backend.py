@@ -48,7 +48,7 @@ class EchoServerProtocol(WebSocketServerProtocol):
     for x in range(1, 375):
       fileframe=str(x)
       output=open(userID+"/"+fileframe.zfill(5)+".jpg","wb")
-      output.write(base64.b64decode(jsonmsg[x]))
+      output.write(base64.b64decode(jsonmsg[str(x)]))
       output.close()
     command=Command(self,userID)
     command.run(timeout=7)
