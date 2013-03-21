@@ -25,7 +25,7 @@ class Command(object):
         def target():
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
-
+            pdb.set_trace()
 
       
         thread = threading.Thread(target=target)
