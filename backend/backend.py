@@ -12,6 +12,8 @@ import base64
 import os
 import shutil
 import subprocess
+import cloudfiles
+
 
 class Command(object):
     def __init__(self,socket, user):
@@ -22,7 +24,8 @@ class Command(object):
     def run(self, timeout):
         def target():
             self.process = subprocess.Popen(self.cmd, shell=True)
-            self.process.communicate()
+            a=self.process.communicate()
+
 
       
         thread = threading.Thread(target=target)
@@ -51,7 +54,7 @@ class EchoServerProtocol(WebSocketServerProtocol):
       output.write(base64.b64decode(jsonmsg[str(x)]))
       output.close()
     command=Command(self,userID)
-    command.run(timeout=7)
+    command.run(timeout=60)
 
 if __name__ == '__main__': 	
    print "starting"

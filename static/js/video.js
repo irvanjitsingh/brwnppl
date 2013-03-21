@@ -6,7 +6,7 @@ function dataURItoBlob(dataURI) {
     }
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
 }
-    function stopVideo(event){
+    function sendVideo(event){
         oFile.abort();
         $("btnRecord").unbind("click");
         $("btnStop").unbind("click");
@@ -24,27 +24,47 @@ function dataURItoBlob(dataURI) {
                 
     }
 
+
+    function stopVideo(event){
+        oFile.abort();
+        $("btnRecord").unbind("click");
+        $("btnStop").unbind("click");
+
+        if (videoTimer){
+            clearInterval(videoTimer);                    
+        }
+        localMediaStream.stop();
+        video.src="";
+
+        $("#btnStart").bind("click", startVideo);
+                
+    }
+
     function recordVideo(event){
         $("#btnRecord").unbind("click");
-        socket=new WebSocket(host);
-        socket.onopen = function () {
-            console.log("Openened connection to websocket");
-            videoTimer = setInterval(
+        videoTimer = setInterval(
             function () {
-                context.drawImage(video, 0, 0, 320, 240);
-                var data = $("#canvas").get()[0].toDataURL('image/jpeg', 0.2);
-                newblob = dataURItoBlob(data);
-                oFile.readAsBinaryString(newblob);
-            }, 40);
-        };
-
-        socket.onerror = function(error){
-          console.log('WebSocket Error' + error);
-        };
-
-        socket.onmessage=function(e){
-            console.log('Server: '+e.data);
-        };  
+                if (maxFrames>frameCounter){
+                    context.drawImage(video, 0, 0, 320, 240);
+                    var data = $("#canvas").get()[0].toDataURL('image/jpeg', 0.4);
+                    newblob = dataURItoBlob(data);
+                    buffer[frameCounter]=newblob;
+                    ++frameCounter;
+                }
+                else{
+                    clearInterval(videoTimer);
+                    $("btnRecord").unbind("click");
+                    $("btnStop").unbind("click");
+                    $("#btnStart").unbind("click");
+                    if (videoTimer){
+                        clearInterval(videoTimer);                    
+                    }
+                    localMediaStream.stop();
+                    video.src="";
+                    frameCounter=1;
+                    oFile.readAsBinaryString(buffer[frameCounter]);
+                } 
+            }, 40); 
     }
 
     function startVideo(event){
@@ -62,6 +82,7 @@ function dataURItoBlob(dataURI) {
             });
 
             frameCounter=1;
+            buffer={};
         }
     }
 
@@ -70,11 +91,13 @@ function dataURItoBlob(dataURI) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
     window.socket=null;
-    window.host="ws://108.171.175.239:9000";
+    window.host="ws://184.106.212.32:9000";
     window.oFile=new FileReader();
     window.frameCounter=1;
     window.videoTimer=null;
-    window.maxFrames=250; 
+    window.maxFrames=375;  //*
+    window.buffer={}; //* 
+    window.jsonObj={};
 
     window.localMediaStream=null;
     window.canvas = document.getElementById("canvas");
@@ -86,14 +109,44 @@ function dataURItoBlob(dataURI) {
         };
 
     oFile.onload = function (oFREvent){
+        if (maxFrames>frameCounter){
+            jsonObj[frameCounter]=btoa(oFREvent.target.result);
+            ++frameCounter;
+            if (frameCounter==375){
+                buffer={};
+                frameCounter=1;
+                jsonObj["user"]="Harnek";
+                tmp=JSON.stringify(jsonObj);
+                jsonObj={};
+                socket=new WebSocket(host);
+                socket.onopen = function () {
+                    socket.send(tmp);
+                };
 
-        var jsonObj={};
-        jsonObj["frame"]=frameCounter;
-        jsonObj["user"]="Harnek";
-        jsonObj["payload"]=btoa(oFREvent.target.result);
-        tmp=JSON.stringify(jsonObj);
-        socket.send(tmp);
-        ++frameCounter;
+                socket.onerror = function(error){
+                   console.log('WebSocket Error' + error);
+                };
+
+                socket.onmessage=function(e){
+                   console.log('Server: '+e.data);
+                   if (e.data==0){
+
+                   }
+                   else{
+                    
+                   }
+                   /*
+                    if (socket!=null){
+            socket.close();
+        }
+        */
+                }; 
+                
+            }
+            else{
+                oFile.readAsBinaryString(buffer[frameCounter]);
+            }
+        }
     };
 
     $("#btnStart").bind("click", startVideo);
