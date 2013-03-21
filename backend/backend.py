@@ -14,14 +14,16 @@ import shutil
 import subprocess
 
 class Command(object):
-    def __init__(self, user):
+    def __init__(self,socket, user):
         self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
         self.process = None
+        self.socket=socket
 
     def run(self, timeout):
         def target():
             self.process = subprocess.Popen(self.cmd, shell=True)
             self.process.communicate()
+
       
         thread = threading.Thread(target=target)
         thread.start()
@@ -30,6 +32,9 @@ class Command(object):
         if thread.is_alive():
             self.process.terminate()
             thread.join()
+            self.socket.sendMessage("1",False)
+        else:
+          self.socket.sendMessage("0",False)
         print self.process.returncode
  
 class EchoServerProtocol(WebSocketServerProtocol):
@@ -37,14 +42,16 @@ class EchoServerProtocol(WebSocketServerProtocol):
   def onMessage(self, msg, binary):
     jsonmsg=simplejson.loads(msg)
     userID=jsonmsg["user"]
-    if jsonmsg["frame"]==1:
-      if os.path.exists(userID):
-        shutil.rmtree(userID)
-      os.makedirs(userID)
-    fileframe=str(jsonmsg["frame"])
-    output=open(userID+"/"+fileframe.zfill(5)+".jpg","wb")
-    output.write(base64.b64decode(jsonmsg["payload"]))
-    output.close()
+    if os.path.exists(userID):
+      shutil.rmtree(userID)
+    os.makedirs(userID)
+    for x in range(1, 375):
+      fileframe=str(x)
+      output=open(userID+"/"+fileframe.zfill(5)+".jpg","wb")
+      output.write(base64.b64decode(jsonmsg[x]))
+      output.close()
+    command=Command(self,userID)
+    command.run(timeout=7)
 
 if __name__ == '__main__': 	
    print "starting"
