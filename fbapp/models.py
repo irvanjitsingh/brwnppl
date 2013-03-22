@@ -8,3 +8,12 @@ class User(models.Model):
 
 	def __unicode__(self):
 		return self.first_name
+
+
+class Video(models.Model):
+	vid = models.IntegerField(primary_key=True)
+	name = models.CharField(max_length=50)
+	user = models.ForeignKey(User)
+
+	def __unicode__(self):
+		return self.name
