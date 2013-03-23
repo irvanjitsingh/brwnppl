@@ -51,10 +51,8 @@ class Command(object):
             self.socket.sendMessage("1",False)
         else:
           if self.status==1:
-            pdb.set_trace()
             self.socket.sendMessage("1",False)
           else:
-            pdb.set_trace()
             self.socket.sendMessage("0",False)
         print self.process.returncode
  
