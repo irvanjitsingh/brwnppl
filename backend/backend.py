@@ -40,7 +40,6 @@ class Command(object):
             else:
               self.status=1;
           except Exception:
-            pdb.set_trace()
             self.status=1;
 
         thread = threading.Thread(target=target)
@@ -52,8 +51,10 @@ class Command(object):
             self.socket.sendMessage("1",False)
         else:
           if self.status==1:
+            pdb.set_trace()
             self.socket.sendMessage("1",False)
           else:
+            pdb.set_trace()
             self.socket.sendMessage("0",False)
         print self.process.returncode
  
