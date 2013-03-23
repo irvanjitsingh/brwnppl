@@ -91,7 +91,7 @@ function dataURItoBlob(dataURI) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
     window.socket=null;
-    window.host="ws://184.106.212.32:9000";
+    window.host="ws://108.166.121.252:9000";
     window.oFile=new FileReader();
     window.frameCounter=1;
     window.videoTimer=null;
@@ -115,7 +115,7 @@ function dataURItoBlob(dataURI) {
             if (frameCounter==375){
                 buffer={};
                 frameCounter=1;
-                jsonObj["user"]="Harnek";
+                jsonObj["user"]=Math.random()+"";
                 tmp=JSON.stringify(jsonObj);
                 jsonObj={};
                 socket=new WebSocket(host);
