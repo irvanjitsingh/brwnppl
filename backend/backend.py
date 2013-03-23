@@ -20,14 +20,17 @@ class Command(object):
         self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
         self.process = None
         self.socket=socket
+        self.status=0;
+        self.user=user;
 
     def run(self, timeout):
         def target():
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
-            pdb.set_trace()
-
-      
+            if os.path.exists(self.user+"/foo.mp4"):
+              self.status=0;
+            else:
+              self.status=1;      
         thread = threading.Thread(target=target)
         thread.start()
 
@@ -37,7 +40,10 @@ class Command(object):
             thread.join()
             self.socket.sendMessage("1",False)
         else:
-          self.socket.sendMessage("0",False)
+          if self.status==1:
+            self.socket.sendMessage("1",False)
+          else:
+            self.socket.sendMessage("0",False)
         print self.process.returncode
  
 class EchoServerProtocol(WebSocketServerProtocol):
