@@ -31,7 +31,7 @@ class Command(object):
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
-              conn = cloudfiles.get_connection(username, apikey)
+              conn = cloudfiles.get_connection(username, self.apikey)
               container=conn.get_container("videos")
               mp4obj=container.create_object(str(random.random())+".mp4")
               mp4obj.load_from_filename(self.user+"/foo.mp4")
@@ -40,6 +40,7 @@ class Command(object):
             else:
               self.status=1;
           except Exception:
+            pdb.set_trace()
             self.status=1;
 
         thread = threading.Thread(target=target)
