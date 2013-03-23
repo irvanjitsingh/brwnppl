@@ -22,18 +22,24 @@ class Command(object):
         self.socket=socket
         self.status=0;
         self.user=user;
+        self.username='h6sidhu'
+        self.apikey='59d78d873277b643e665cea3a0139230'
 
     def run(self, timeout):
         def target():
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
+              conn = cloudfiles.get_connection(username, apikey)
+              container=conn.get_container("videos")
+              mp4obj=container.create_object(str(random.random())+".mp4")
+              mp4obj.load_from_filename(self.user+"/foo.mp4")
+              shutil.rmtree(userID)
               self.status=0;
             else:
               self.status=1;      
         thread = threading.Thread(target=target)
         thread.start()
-
         thread.join(timeout)
         if thread.is_alive():
             self.process.terminate()
