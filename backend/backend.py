@@ -27,6 +27,7 @@ class Command(object):
 
     def run(self, timeout):
         def target():
+          try:
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
@@ -37,7 +38,10 @@ class Command(object):
               shutil.rmtree(userID)
               self.status=0;
             else:
-              self.status=1;      
+              self.status=1;
+          except ValueError:
+            self.status=1;
+                  
         thread = threading.Thread(target=target)
         thread.start()
         thread.join(timeout)
