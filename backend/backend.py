@@ -13,6 +13,7 @@ import os
 import shutil
 import subprocess
 import cloudfiles
+import random
 
 
 class Command(object):
@@ -31,7 +32,7 @@ class Command(object):
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
-              conn = cloudfiles.get_connection(username, self.apikey)
+              conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
               mp4obj=container.create_object(str(random.random())+".mp4")
               mp4obj.load_from_filename(self.user+"/foo.mp4")
