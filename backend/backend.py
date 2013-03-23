@@ -39,9 +39,9 @@ class Command(object):
               self.status=0;
             else:
               self.status=1;
-          except ValueError:
+          except Exception:
             self.status=1;
-                  
+
         thread = threading.Thread(target=target)
         thread.start()
         thread.join(timeout)
