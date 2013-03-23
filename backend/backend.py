@@ -32,17 +32,11 @@ class Command(object):
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
-              pdb.set_trace()
               conn = cloudfiles.get_connection(self.username, self.apikey)
-              pdb.set_trace()
               container=conn.get_container("videos")
-              pdb.set_trace()
               mp4obj=container.create_object(str(random.random())+".mp4")
-              pdb.set_trace()
               mp4obj.load_from_filename(self.user+"/foo.mp4")
-              pdb.set_trace()
-              shutil.rmtree(userID)
-              pdb.set_trace()
+              shutil.rmtree(self.user)
               self.status=0;
             else:
               self.status=1;
