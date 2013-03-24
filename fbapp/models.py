@@ -11,7 +11,8 @@ class User(models.Model):
 
 
 class Video(models.Model):
-	vid = models.IntegerField(primary_key=True)
+	vid = models.BigIntegerField(primary_key=True)
+	uri = models.CharField(max_length=300)
 	name = models.CharField(max_length=50)
 	user = models.ForeignKey(User)
 

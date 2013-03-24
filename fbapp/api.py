@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 def create(request, uid, vid, uri):
 	if User.objects.get(uid=uid):
-		v = Video(vid=vid, user=User.objects.get(uid=uid))
+		v = Video(vid=vid, uri=uri, user=User.objects.get(uid=uid))
 		v.save()
 		response = 1
 	else:
