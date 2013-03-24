@@ -64,6 +64,7 @@ class Command(object):
 class EchoServerProtocol(WebSocketServerProtocol):
 
   def onMessage(self, msg, binary):
+    pdb.set_trace()
     jsonmsg=simplejson.loads(msg)
     userID=jsonmsg["user"]
     if os.path.exists(userID):
