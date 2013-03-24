@@ -6,8 +6,7 @@ def create(request, uid, vid, uri):
 	if User.objects.get(uid=uid):
 		v = Video(vid=vid, user=User.objects.get(uid=uid))
 		v.save()
-		response = uri
-		test = "t"
+		response = 1
 	else:
 		response = 0
 	return HttpResponse(response)
