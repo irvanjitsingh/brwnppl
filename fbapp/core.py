@@ -9,5 +9,5 @@ import requests, urlparse, random, pdb
 def home(request):
 	if request.session.get('uid'):
 		name = User.objects.get(uid=request.session.get('uid')).first_name
-	c = RequestContext(request, {'name': name})
+	c = RequestContext(request, {'uid': uid})
 	return render_to_response('home.html', c)
