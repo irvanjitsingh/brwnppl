@@ -115,7 +115,7 @@ function dataURItoBlob(dataURI) {
             if (frameCounter==375){
                 buffer={};
                 frameCounter=1;
-                jsonObj["user"]=Math.random()+"";
+                jsonObj["user"]=parseInt($("#userid").text());
                 tmp=JSON.stringify(jsonObj);
                 jsonObj={};
                 socket=new WebSocket(host);

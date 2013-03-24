@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import cloudfiles
 import random
-
+import requests
 
 class Command(object):
     def __init__(self,socket, user):
@@ -32,10 +32,14 @@ class Command(object):
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
+              VID=self.user+str(random.random())[2:]+".mp4"
               conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
-              mp4obj=container.create_object(str(random.random())+".mp4")
+              mp4obj=container.create_object(VID)
               mp4obj.load_from_filename(self.user+"/foo.mp4")
+              URI=mp4obj.public_streaming_uri()
+              response = requests.post("http://bpbhangra.herokuapp.com/api/1/"+VID+"/"+self.user+"/"+URI)
+              pdb.set_trace()
               shutil.rmtree(self.user)
               self.status=0;
             else:
@@ -60,6 +64,7 @@ class Command(object):
 class EchoServerProtocol(WebSocketServerProtocol):
 
   def onMessage(self, msg, binary):
+    pdb.set_trace()
     jsonmsg=simplejson.loads(msg)
     userID=jsonmsg["user"]
     if os.path.exists(userID):
@@ -71,7 +76,7 @@ class EchoServerProtocol(WebSocketServerProtocol):
       output.write(base64.b64decode(jsonmsg[str(x)]))
       output.close()
     command=Command(self,userID)
-    command.run(timeout=60)
+    command.run(timeout=9000)
 
 if __name__ == '__main__': 	
    print "starting"
