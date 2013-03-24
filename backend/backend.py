@@ -38,7 +38,7 @@ class Command(object):
               mp4obj=container.create_object(VID)
               mp4obj.load_from_filename(self.user+"/foo.mp4")
               URI=mp4obj.public_streaming_uri()
-              response = requests.post("http://bpbhangra.herokuapp.com/api/1/"+VID+"/"+self.user+"/"+URI)
+              response = requests.post("http://bpbhangra.herokuapp.com/api/1/"+self.user+"/"+VID+"/"+URI)
               pdb.set_trace()
               shutil.rmtree(self.user)
               self.status=0;
@@ -64,9 +64,8 @@ class Command(object):
 class EchoServerProtocol(WebSocketServerProtocol):
 
   def onMessage(self, msg, binary):
-    pdb.set_trace()
     jsonmsg=simplejson.loads(msg)
-    userID=jsonmsg["user"]
+    userID=str(jsonmsg["user"])
     if os.path.exists(userID):
       shutil.rmtree(userID)
     os.makedirs(userID)
