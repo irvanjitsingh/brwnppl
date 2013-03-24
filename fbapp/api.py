@@ -2,11 +2,11 @@ from fbapp.models import User, Video
 from django.http import HttpResponse
 
 
-def create(request, vid, uid):
+def create(request, uid, vid, uri):
 	if User.objects.get(uid=uid):
 		v = Video(vid=vid, user=User.objects.get(uid=uid))
 		v.save()
-		response = 1
+		response = uri
 	else:
 		response = 0
 	return HttpResponse(response)
