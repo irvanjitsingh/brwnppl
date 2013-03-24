@@ -75,7 +75,7 @@ class EchoServerProtocol(WebSocketServerProtocol):
       output.write(base64.b64decode(jsonmsg[str(x)]))
       output.close()
     command=Command(self,userID)
-    command.run(timeout=60)
+    command.run(timeout=9000)
 
 if __name__ == '__main__': 	
    print "starting"
