@@ -36,7 +36,7 @@ def oauth(request):
 		if not User.objects.filter(uid=uid):
 			user = User(uid=uid, first_name=name, access_token=access_token)
 			user.save()
-		return HttpResponseRedirect('/form')
+		return HttpResponseRedirect('/home')
 	else:
 		text = 'Error: CSRF token could not be validated.'
 		c = RequestContext(request, {'content': text})
