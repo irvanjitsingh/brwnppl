@@ -38,7 +38,7 @@ class Command(object):
               mp4obj=container.create_object(VID)
               mp4obj.load_from_filename(self.user+"/foo.mp4")
               URI=mp4obj.public_streaming_uri()
-              r = requests.post("http://bpbhangra.herokuapp.com/api/1/"+VID+"/"+self.user+"/"+URI)
+              response = requests.post("http://bpbhangra.herokuapp.com/api/1/"+VID+"/"+self.user+"/"+URI)
               pdb.set_trace()
               shutil.rmtree(self.user)
               self.status=0;
