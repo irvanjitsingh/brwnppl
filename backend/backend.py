@@ -25,6 +25,7 @@ class Command(object):
         self.user=user;
         self.username='h6sidhu'
         self.apikey='59d78d873277b643e665cea3a0139230'
+        self.request={}
 
     def run(self, timeout):
         def target():
