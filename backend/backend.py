@@ -26,7 +26,7 @@ class Command(object):
         self.username='h6sidhu'
         self.apikey='59d78d873277b643e665cea3a0139230'
         self.request={}
-        self.url="http://bpbhangra.herokuapp.com/api/1/"
+        self.url="http://bpbhangra.herokuapp.com/api/1/videos/add/"
 
     def run(self, timeout):
         def target():
@@ -45,7 +45,7 @@ class Command(object):
               mp4obj.load_from_filename(self.user+"/foo.mp4")
               URI=mp4obj.public_streaming_uri()
               jsonmsg = {'uid': self.user, 'vid': VID, 'uri': URI}
-              response = requests.post(self.url, data=json.dumps(jsonmsg))
+              response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
               pdb.set_trace()
               shutil.rmtree(self.user)
               self.status=0;
