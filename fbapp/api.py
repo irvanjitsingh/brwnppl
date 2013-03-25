@@ -1,17 +1,20 @@
 from fbapp.models import User, Video
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import json as simplejson
+import json as simplejson, pdb
 
 @csrf_exempt
 def create(request):
 	response={}
 	try: 
 		data = simplejson.loads(request.raw_post_data)
-		vid=data["vid"]
+		vid=int(data["vid"])
 		uri=data["uri"]
-		uid=data["uid"]
-		test = [uid, vid]
+		uid=int(data["uid"])
+		print request.raw_post_data
+		print vid
+		print uid
+		print uri
 		try:
 			if User.objects.get(uid=uid):
 				try:
