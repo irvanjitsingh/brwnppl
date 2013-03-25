@@ -26,6 +26,7 @@ class Command(object):
         self.username='h6sidhu'
         self.apikey='59d78d873277b643e665cea3a0139230'
         self.request={}
+        self.url="http://bpbhangra.herokuapp.com/api/1/"
 
     def run(self, timeout):
         def target():
@@ -39,9 +40,8 @@ class Command(object):
               mp4obj=container.create_object(VID+".mp4")
               mp4obj.load_from_filename(self.user+"/foo.mp4")
               URI=mp4obj.public_streaming_uri()
-              url = "http://bpbhangra.herokuapp.com/api/1/%(uid)d/%(vid)d/%(uri)s/" % {'uid': self.user, 'vid':vid, 'uri':URI}
-              # response = requests.get("http://bpbhangra.herokuapp.com/api/1/"+self.user+"/"+VID+"/"+URI+"/")
-              response = requests.get(url)
+              jsonmsg = {'uid': self.user, 'vid': VID, 'uri': URI}
+              response = requests.post(self.url, data=json.dumps(jsonmsg))
               pdb.set_trace()
               shutil.rmtree(self.user)
               self.status=0;
