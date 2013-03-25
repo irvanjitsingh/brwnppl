@@ -11,6 +11,7 @@ def create(request):
 		vid=int(data["vid"])
 		uri=data["uri"]
 		uid=int(data["uid"])
+		test = [uid, vid]
 		try:
 			if User.objects.get(uid=uid):
 				v = Video(vid=vid, uri=uri, user=User.objects.get(uid=uid))
@@ -19,7 +20,7 @@ def create(request):
 			else:
 				response.update({'response': 'user does not exist'})
 		except Exception:
-			response.update({'response': 'failed to save'})
+			response.update({'response': test})
 	except Exception:
 		response.update({'response': 'json error'})
 	return HttpResponse(simplejson.dumps(response), content_type='application/json')
