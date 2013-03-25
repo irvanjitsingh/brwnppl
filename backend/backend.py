@@ -28,6 +28,7 @@ class Command(object):
         self.request={}
         self.url="https://bpbhangra.herokuapp.com/api/1/videos/add/"
         self.cloudcontainer=None
+        self.cloudcontainer2=None
 
     def run(self, timeout):
         def target():
@@ -40,13 +41,17 @@ class Command(object):
               container=conn.get_container("videos")
               self.cloudcontainer=container.create_object(VID+".mp4")
               self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
-              URI=self.cloudcontainer.public_streaming_uri()
-              jsonmsg = {'uid': self.user, 'vid': VID, 'uri': URI}
+              URI=self.cloudcontainer.public_uri()
+              self.cloudcontainer2=container.create_object(VID+".jpg")
+              self.cloudcontainer2.load_from_filename(self.user+"/00150.jpg")
+              Thumbnail=self.cloudcontainer2.public_uri()
+              jsonmsg = {'uid': self.user, 'vid': VID, 'uri_v': URI, 'uri_i':Thumbnail}
               response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
               jsonresponse=simplejson.loads(response.text)
               if jsonresponse["response"]!="success":
                 self.status=1
                 self.cloudcontainer.purge_from_cdn()
+                self.cloudcontainer2.purge_from_cdn()
               else:
                 self.status=0
             else:
