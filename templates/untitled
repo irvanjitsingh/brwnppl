@@ -1,0 +1,5 @@
+<html>
+<video width="356" height="200">
+<source src="{{v.uri}}" type="video/mp4"/>
+</video>
+</html>
