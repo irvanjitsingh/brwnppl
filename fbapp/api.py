@@ -18,5 +18,5 @@ def create(request):
 		else:
 			response.update({'response': '2'})
 	except Exception:
-		response.update({'response': request})
+		response.update({'response': '0'})
 	return HttpResponse(simplejson.dumps(response), content_type='application/json')
