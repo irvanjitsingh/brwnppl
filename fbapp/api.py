@@ -8,9 +8,9 @@ def create(request):
 	response={}
 	try: 
 		data = simplejson.loads(request.raw_post_data)
-		vid=long(data["vid"])
+		vid=data["vid"]
 		uri=data["uri"]
-		uid=int(data["uid"])
+		uid=data["uid"]
 		test = [uid, vid]
 		try:
 			if User.objects.get(uid=uid):
