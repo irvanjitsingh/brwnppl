@@ -16,7 +16,7 @@ def create(request):
 			v.save()
 			response.update({'response': '1'})
 		else:
-			response.update({'response': '0'})
+			response.update({'response': '2'})
 	except Exception:
 		response.update({'response': '0'})
 	return HttpResponse(simplejson.dumps(response), content_type='application/json')
