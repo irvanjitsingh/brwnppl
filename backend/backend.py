@@ -21,12 +21,13 @@ class Command(object):
         self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
         self.process = None
         self.socket=socket
-        self.status=0;
-        self.user=user;
+        self.status=0
+        self.user=user
         self.username='h6sidhu'
         self.apikey='59d78d873277b643e665cea3a0139230'
         self.request={}
         self.url="http://bpbhangra.herokuapp.com/api/1/videos/add/"
+        self.cloudcontainer
 
     def run(self, timeout):
         def target():
@@ -37,18 +38,23 @@ class Command(object):
               VID=self.user+str(random.random())[2:]
               conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
-              mp4obj=container.create_object(VID+".mp4")
-              mp4obj.load_from_filename(self.user+"/foo.mp4")
-              URI=mp4obj.public_streaming_uri()
+              self.cloudcontainer=container.create_object(VID+".mp4")
+              self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
+              URI=self.cloudcontainer.public_streaming_uri()
               jsonmsg = {'uid': self.user, 'vid': VID, 'uri': URI}
               response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
+              jsonresponse=simplejson.loads(response.text)
               pdb.set_trace()
-              shutil.rmtree(self.user)
-              self.status=0;
+              if int(jsonr["response"])==0:
+                self.status=1
+                self.cloudcontainer.purge_from_cdn()
+              else:
+                self.status=0
             else:
-              self.status=1;
+              self.status=1
+            shutil.rmtree(self.user)
           except Exception:
-            self.status=1;
+            self.status=1
 
         thread = threading.Thread(target=target)
         thread.start()
