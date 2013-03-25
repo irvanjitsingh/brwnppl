@@ -45,7 +45,7 @@ class Command(object):
               response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
               jsonresponse=simplejson.loads(response.text)
               pdb.set_trace()
-              if int(jsonr["response"])==0:
+              if int(jsonresponse["response"])==0:
                 self.status=1
                 self.cloudcontainer.purge_from_cdn()
               else:
