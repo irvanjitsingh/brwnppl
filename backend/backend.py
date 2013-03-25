@@ -35,7 +35,7 @@ class Command(object):
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
             if os.path.exists(self.user+"/foo.mp4"):
-              VID=self.user+str(random.random())[2:]
+              VID=self.user+str(random.random())[8:]
               conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
               self.cloudcontainer=container.create_object(VID+".mp4")
@@ -44,8 +44,7 @@ class Command(object):
               jsonmsg = {'uid': self.user, 'vid': VID, 'uri': URI}
               response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
               jsonresponse=simplejson.loads(response.text)
-              pdb.set_trace()
-              if int(jsonresponse["response"])==0:
+              if jsonresponse["response"]!="success":
                 self.status=1
                 self.cloudcontainer.purge_from_cdn()
               else:
