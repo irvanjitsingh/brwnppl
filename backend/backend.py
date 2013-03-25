@@ -26,8 +26,8 @@ class Command(object):
         self.username='h6sidhu'
         self.apikey='59d78d873277b643e665cea3a0139230'
         self.request={}
-        self.url="http://bpbhangra.herokuapp.com/api/1/videos/add/"
-        self.cloudcontainer
+        self.url="https://bpbhangra.herokuapp.com/api/1/videos/add/"
+        self.cloudcontainer=None
 
     def run(self, timeout):
         def target():
