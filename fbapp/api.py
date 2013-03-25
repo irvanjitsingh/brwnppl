@@ -9,7 +9,7 @@ def create(request):
 	try: 
 		data = simplejson.loads(request.raw_post_data)
 		vid=int(data["vid"])
-		uri=data["uri"]
+		uri=data["uri_v"]
 		uid=int(data["uid"])
 		print request.raw_post_data
 		print vid
