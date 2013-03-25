@@ -8,19 +8,22 @@ def create(request):
 	response={}
 	try: 
 		data = simplejson.loads(request.raw_post_data)
-		vid=int(data["vid"])
+		vid=long(data["vid"])
 		uri=data["uri"]
 		uid=int(data["uid"])
 		test = [uid, vid]
 		try:
 			if User.objects.get(uid=uid):
-				v = Video(vid=vid, uri=uri, user=User.objects.get(uid=uid))
-				v.save()
-				response.update({'response': 'success'})
+				try:
+					v = Video(vid=vid, uri=uri, user=User.objects.get(uid=uid))
+					v.save()
+					response.update({'response': 'success'})
+				except Exception:
+					response.update({'response':'failed to save'})
 			else:
 				response.update({'response': 'user does not exist'})
 		except Exception:
-			response.update({'response': test})
+			response.update({'response': 'failed to identify'})
 	except Exception:
 		response.update({'response': 'json error'})
 	return HttpResponse(simplejson.dumps(response), content_type='application/json')
