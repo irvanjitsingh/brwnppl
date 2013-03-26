@@ -18,7 +18,7 @@ import requests
 
 class Command(object):
     def __init__(self,socket, user):
-        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libvpx -r 30 -i /music/test.mp3 "+user+"/foo.webm"
+        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libvpx -r 30 -i music/test.mp3 "+user+"/foo.webm"
         self.process = None
         self.socket=socket
         self.status=0
