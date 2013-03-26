@@ -42,7 +42,7 @@ class Command(object):
               self.cloudcontainer=container.create_object(VID+".mp4")
               self.cloudcontainer.content_type="video/mp4"
               self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
-              URI=self.cloudcontainer.public_uri()
+              URI=self.cloudcontainer.public_streaming_uri()
               self.cloudcontainer2=container.create_object(VID+".jpg")
               self.cloudcontainer2.load_from_filename(self.user+"/00150.jpg")
               Thumbnail=self.cloudcontainer2.public_uri()
