@@ -46,7 +46,7 @@ function dataURItoBlob(dataURI) {
             function () {
                 if (maxFrames>frameCounter){
                     context.drawImage(video, 0, 0, 320, 240);
-                    var data = $("#canvas").get()[0].toDataURL('image/jpeg', 0.4);
+                    var data = $("#canvas").get()[0].toDataURL('image/jpeg', 0.6);
                     newblob = dataURItoBlob(data);
                     buffer[frameCounter]=newblob;
                     ++frameCounter;
@@ -64,7 +64,7 @@ function dataURItoBlob(dataURI) {
                     frameCounter=1;
                     oFile.readAsBinaryString(buffer[frameCounter]);
                 } 
-            }, 40); 
+            }, 33); 
     }
 
     function startVideo(event){
@@ -95,7 +95,7 @@ function dataURItoBlob(dataURI) {
     window.oFile=new FileReader();
     window.frameCounter=1;
     window.videoTimer=null;
-    window.maxFrames=375;  //*
+    window.maxFrames=450;  //*
     window.buffer={}; //* 
     window.jsonObj={};
 
@@ -112,7 +112,7 @@ function dataURItoBlob(dataURI) {
         if (maxFrames>frameCounter){
             jsonObj[frameCounter]=btoa(oFREvent.target.result);
             ++frameCounter;
-            if (frameCounter==375){
+            if (frameCounter==maxFrames){
                 buffer={};
                 frameCounter=1;
                 jsonObj["user"]=parseInt($("#userid").text());
