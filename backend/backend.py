@@ -18,7 +18,7 @@ import requests
 
 class Command(object):
     def __init__(self,socket, user):
-        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4 mimetype=video/mp4"
+        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
         self.process = None
         self.socket=socket
         self.status=0
@@ -40,6 +40,7 @@ class Command(object):
               conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
               self.cloudcontainer=container.create_object(VID+".mp4")
+              self.cloudcontainer.content_type="video/mp4"
               self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
               URI=self.cloudcontainer.public_uri()
               self.cloudcontainer2=container.create_object(VID+".jpg")
