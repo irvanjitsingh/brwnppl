@@ -18,7 +18,7 @@ import requests
 
 class Command(object):
     def __init__(self,socket, user):
-        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
+        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4 mimetype=video/mp4"
         self.process = None
         self.socket=socket
         self.status=0
