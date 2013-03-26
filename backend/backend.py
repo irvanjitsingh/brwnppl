@@ -41,8 +41,8 @@ class Command(object):
               container=conn.get_container("videos")
               self.cloudcontainer=container.create_object(VID+".mp4")
               self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
-              meta_data['mime-type'] = "video/mp4"
               pdb.set_trace()
+              meta_data['mime-type'] = "video/mp4"
               self.cloudcontainer.metadata=meta_data
               self.cloudcontainer.sync_metadata()
               URI=self.cloudcontainer.public_streaming_uri()
