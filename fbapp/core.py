@@ -17,5 +17,5 @@ def home(request):
 def upload(request):
 	if request.session.get('uid'):
 		uid = request.session['uid']
-	c = RequestContext(request, {'uid': uid)
+	c = RequestContext(request, {'uid': uid})
 	return render_to_response('upload.html', c)
