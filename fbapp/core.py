@@ -12,3 +12,11 @@ def home(request):
 		videos = Video.objects.all()
 	c = RequestContext(request, {'uid': request.session['uid'], 'videos':videos})
 	return render_to_response('home.html', c)
+
+
+# def record(request):
+# 	if request.session.get('uid'):
+# 		name = User.objects.get(uid=request.session.get('uid')).first_name
+# 		videos = Video.objects.all()
+# 	c = RequestContext(request, {'uid': request.session['uid'], 'videos':videos})
+# 	return render_to_response('home.html', c)
