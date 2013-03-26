@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
+{% block head %}
+<script src="{{ STATIC_URL }}js/video.js"></script>
+{% endblock %}
 {% block content %}
 
       <div class="hero-unit">
         <div id="userid"  style="display:none">{{ uid }}</div>
         <center>
+                
         <article>
             <video  id="video" width="320" height="200" autoplay></video>
             <section>

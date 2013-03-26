@@ -12,10 +12,13 @@ class User(models.Model):
 
 class Video(models.Model):
 	vid = models.BigIntegerField(primary_key=True)
-	uri_v = models.CharField(max_length=300)
-	uri_i = models.CharField(max_length=300)
 	name = models.CharField(max_length=50)
 	user = models.ForeignKey(User)
+	uri_v = models.CharField(max_length=300)
+	uri_i = models.CharField(max_length=300)
+	upvotes = models.IntegerField()
+	downvotes = models.IntegerField()
+	rating = models.IntegerField()
 
 	def __unicode__(self):
 		return self.name

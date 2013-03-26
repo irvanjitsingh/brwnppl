@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="hero-unit">
+<center>
+	<video controls="" name="media" post="{{ video.uri_i }}">
+		<source src="{{ video.uri_v }}" type="video/webm">
+	</video>
+	<br>
+<div id="{{ video.vid }}" class="video">
+<div class="btn-group" data-toggle="buttons-radio">
+  <button type="submit" class="btn btn-primary">Vote Up</button>
+  <button type="submit" class="btn btn-primary">Vote Down</button>
+</center>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

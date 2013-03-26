@@ -1,20 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-
-      <div class="hero-unit">
-        <div id="userid"  style="display:none">{{ uid }}</div>
-        <h1><h3>Hey {{ uid }}, welcome to Brwnppl Bhangra</h3></h1>
-      </div>
-
-      <a href='/upload'>RECORD</a>
-
-      <div class="hero-unit">
-        {% for v in videos %}
-        <video controls="" name="media" post="{{ v.uri_i }}">
-          <source src="{{ v.uri_v }}" type="video/webm">
-        </video>
-        {% endfor %}
-      </div>
-
+<div class="hero-unit">
+  {% for v in videos %}
+  	<div id="video grid">
+  	<center>
+  	<a href="/watch/{{ v.vid }}">{{ v.name }}</a><br>
+    <video controls="" name="media" post="{{ v.uri_i }}">
+      <source src="{{ v.uri_v }}" type="video/webm">
+    </video>
+	</center>
+	</div>
+  {% endfor %}
+</div>
 
 {% endblock %}
