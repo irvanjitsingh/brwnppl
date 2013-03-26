@@ -18,18 +18,8 @@
       <div class="hero-unit">
         {{v.uri}}
         {% for v in videos %}
-        <video width="356" height="200" controls poster="http://0639ac876cdeb83a534d-95c931daa7c80b903aae4215b472f9f8.r4.cf1.rackcdn.com/Snowball.png"> 
-        <source src="{{v.uri}}" type="video/webm"/>
-        <script type="text/javascript">
-    jwplayer("myElement").setup({
-        file: "{{ v.uri }}",
-        image: "http://0639ac876cdeb83a534d-95c931daa7c80b903aae4215b472f9f8.r4.cf1.rackcdn.com/Snowball.png"
-    });
-    </script>
-
-{#         <source src="full/link/to/http/ogv/video/file.ogv" type="video/ogg" />
-        <source src="full/link/to/http/webm/video/file.wbem" type="video/webm" /> #}
-        <em>Sorry, your browser doesn't support HTML5 video</em>
+        <video controls="" autoplay="" name="media" post="{{ v.uri_i }}">
+          <source src="{{ v.uri_v }}" type="video/webm">
         </video>
         {% endfor %}
       </div>

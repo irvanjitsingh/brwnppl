@@ -9,16 +9,13 @@ def create(request):
 	try: 
 		data = simplejson.loads(request.raw_post_data)
 		vid=int(data["vid"])
-		uri=data["uri_v"]
 		uid=int(data["uid"])
-		print request.raw_post_data
-		print vid
-		print uid
-		print uri
+		uri_v=data["uri_v"]
+		uri_i=data["uri_i"]
 		try:
 			if User.objects.get(uid=uid):
 				try:
-					v = Video(vid=vid, uri=uri, user=User.objects.get(uid=uid))
+					v = Video(vid=vid, uri_v=uri_v, uri_i=uri_i, user=User.objects.get(uid=uid))
 					v.save()
 					response.update({'response': 'success'})
 				except Exception:
