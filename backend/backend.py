@@ -18,7 +18,7 @@ import requests
 
 class Command(object):
     def __init__(self,socket, user):
-        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
+        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libvpx -r 30 "+user+"/foo.webm"
         self.process = None
         self.socket=socket
         self.status=0
@@ -35,14 +35,14 @@ class Command(object):
           try:
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
-            if os.path.exists(self.user+"/foo.mp4"):
+            if os.path.exists(self.user+"/foo.webm"):
               VID=self.user+str(random.random())[8:]
               conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
-              self.cloudcontainer=container.create_object(VID+".mp4")
-              self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
-              pdb.set_trace()
-              meta_data['mime-type'] = "video/mp4"
+              self.cloudcontainer=container.create_object(VID+".webm")
+              self.cloudcontainer.load_from_filename(self.user+"/foo.webm")
+              meta_data={}
+              meta_data['mime-type'] = 'video/webm'
               self.cloudcontainer.metadata=meta_data
               self.cloudcontainer.sync_metadata()
               URI=self.cloudcontainer.public_streaming_uri()
