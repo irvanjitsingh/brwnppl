@@ -50,6 +50,7 @@ class Command(object):
               self.cloudcontainer2.load_from_filename(self.user+"/00150.jpg")
               Thumbnail=self.cloudcontainer2.public_uri()
               jsonmsg = {'uid': self.user, 'vid': VID, 'uri_v': URI, 'uri_i':Thumbnail}
+              pdb.set_trace()
               response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
               jsonresponse=simplejson.loads(response.text)
               if jsonresponse["response"]!="success":
