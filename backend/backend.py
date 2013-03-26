@@ -45,7 +45,7 @@ class Command(object):
               meta_data['mime-type'] = 'video/webm'
               self.cloudcontainer.metadata=meta_data
               self.cloudcontainer.sync_metadata()
-              URI=self.cloudcontainer.public_streaming_uri()
+              URI=self.cloudcontainer.public_uri()
               self.cloudcontainer2=container.create_object(VID+".jpg")
               self.cloudcontainer2.load_from_filename(self.user+"/00150.jpg")
               Thumbnail=self.cloudcontainer2.public_uri()
