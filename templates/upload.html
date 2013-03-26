@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+      <div class="hero-unit">
+        <div id="userid"  style="display:none">{{ uid }}</div>
+        <center>
+        <article>
+            <video  id="video" width="320" height="200" autoplay></video>
+            <section>
+                <button id="btnStart">Start video</button>
+                <button id="btnStop">Stop video</button>            
+                <button id="btnRecord">Record</button>
+            </section>
+            <canvas id="canvas" width="320" height="240"></canvas>
+        </article>
+        </center> 
+      </div>
+
+
+      <div class="row">
+        <div class="span6">
+          <h2>How it works</h2>
+          <p>...</p>
+
+          <h2>heading</h2>
+          <p>... </p> 
+        </div>
+      </div>
+
+{#       Button 1
+ #}
+      <audio controls>
+          Notorious Jatt
+          <source src="http://09ead70c429c75a2600d-89f8d15d9ed91247ce235a0edc049366.r74.cf1.rackcdn.com/test.mp3" type="audio/mpeg" />
+          <em>Sorry, your browser doesn't support HTML5 audio.</em>
+      </audio>
+
+{#       Button 2
+ #}      
+      <audio controls>
+          Random other track
+          <source src="http://09ead70c429c75a2600d-89f8d15d9ed91247ce235a0edc049366.r74.cf1.rackcdn.com/test.mp3" type="audio/mpeg" />
+          <em>Sorry, your browser doesn't support HTML5 audio.</em>
+      </audio>
+
+
+{% endblock %}

@@ -4,35 +4,17 @@
       <div class="hero-unit">
         <div id="userid"  style="display:none">{{ uid }}</div>
         <h1><h3>Hey {{ uid }}, welcome to Brwnppl Bhangra</h3></h1>
-        <article>
-            <video  id="video" width="320" height="200" autoplay></video>
-            <section>
-                <button id="btnStart">Start video</button>
-                <button id="btnStop">Stop video</button>            
-                <button id="btnRecord">Record</button>
-            </section>
-            <canvas id="canvas" width="320" height="240"></canvas>
-        </article> 
       </div>
 
+      <a href='/upload'
+
       <div class="hero-unit">
-        {{v.uri}}
         {% for v in videos %}
-        <video controls="" autoplay="" name="media" post="{{ v.uri_i }}">
+        <video controls="" name="media" post="{{ v.uri_i }}">
           <source src="{{ v.uri_v }}" type="video/webm">
         </video>
         {% endfor %}
       </div>
 
-
-      <div class="row">
-        <div class="span6">
-          <h2>How it works</h2>
-          <p>...</p>
-
-          <h2>heading</h2>
-          <p>... </p> 
-        </div>
-      </div>
 
 {% endblock %}
