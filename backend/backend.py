@@ -18,7 +18,7 @@ import requests
 
 class Command(object):
     def __init__(self,socket, user):
-        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libx264 -r 30 "+user+"/foo.mp4"
+        self.cmd = "avconv -i "+user+"/%05d.jpg -c:v libvpx -r 30 "+user+"/foo.webm"
         self.process = None
         self.socket=socket
         self.status=0
@@ -26,28 +26,36 @@ class Command(object):
         self.username='h6sidhu'
         self.apikey='59d78d873277b643e665cea3a0139230'
         self.request={}
-        self.url="http://bpbhangra.herokuapp.com/api/1/videos/add/"
-        self.cloudcontainer
+        self.url="https://bpbhangra.herokuapp.com/api/1/videos/add/"
+        self.cloudcontainer=None
+        self.cloudcontainer2=None
 
     def run(self, timeout):
         def target():
           try:
             self.process = subprocess.Popen(self.cmd, shell=True)
             a=self.process.communicate()
-            if os.path.exists(self.user+"/foo.mp4"):
-              VID=self.user+str(random.random())[2:]
+            if os.path.exists(self.user+"/foo.webm"):
+              VID=self.user+str(random.random())[8:]
               conn = cloudfiles.get_connection(self.username, self.apikey)
               container=conn.get_container("videos")
-              self.cloudcontainer=container.create_object(VID+".mp4")
-              self.cloudcontainer.load_from_filename(self.user+"/foo.mp4")
-              URI=self.cloudcontainer.public_streaming_uri()
-              jsonmsg = {'uid': self.user, 'vid': VID, 'uri': URI}
+              self.cloudcontainer=container.create_object(VID+".webm")
+              self.cloudcontainer.load_from_filename(self.user+"/foo.webm")
+              meta_data={}
+              meta_data['mime-type'] = 'video/webm'
+              self.cloudcontainer.metadata=meta_data
+              self.cloudcontainer.sync_metadata()
+              URI=self.cloudcontainer.public_uri()
+              self.cloudcontainer2=container.create_object(VID+".jpg")
+              self.cloudcontainer2.load_from_filename(self.user+"/00150.jpg")
+              Thumbnail=self.cloudcontainer2.public_uri()
+              jsonmsg = {'uid': self.user, 'vid': VID, 'uri_v': URI, 'uri_i':Thumbnail}
               response = requests.post(self.url, data=simplejson.dumps(jsonmsg))
               jsonresponse=simplejson.loads(response.text)
-              pdb.set_trace()
-              if int(jsonr["response"])==0:
+              if jsonresponse["response"]!="success":
                 self.status=1
                 self.cloudcontainer.purge_from_cdn()
+                self.cloudcontainer2.purge_from_cdn()
               else:
                 self.status=0
             else:
