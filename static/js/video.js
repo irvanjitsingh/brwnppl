@@ -46,7 +46,7 @@ function dataURItoBlob(dataURI) {
             function () {
                 if (maxFrames>frameCounter){
                     context.drawImage(video, 0, 0, 320, 240);
-                    var data = $("#canvas").get()[0].toDataURL('image/jpeg', 1);
+                    var data = $("#canvas").get()[0].toDataURL('image/jpeg', 0.65);
                     newblob = dataURItoBlob(data);
                     buffer[frameCounter]=newblob;
                     ++frameCounter;
