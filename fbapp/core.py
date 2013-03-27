@@ -7,13 +7,14 @@ import requests, urlparse, random, pdb
 
 
 def home(request):
-	if request.session.get('uid'):
+	if request.session.get('uid') and request.session['status'] == 'logged_in':
 		name = User.objects.get(uid=request.session.get('uid')).first_name
 		videos = Video.objects.all()
 		uid = request.session['uid']
 		c = RequestContext(request, {'uid': uid, 'videos':videos})
 		return render_to_response('home.html', c)
 	else:
+		request.session['status'] = 'done'
 		return HttpResponseRedirect('/login')
 
 

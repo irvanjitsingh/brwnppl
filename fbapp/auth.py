@@ -15,7 +15,6 @@ permissions = 'publish_stream'
 
 @csrf_exempt
 def authenticate(request):
-	print 'entered auth'
 	request.session['state'] = random.getrandbits(128)
 	dialog_redirect = (
 		'https://www.facebook.com/dialog/oauth?client_id= %(id)s&redirect_uri=%(uri)s&scope=%(permissions)s&state=%(state)s'
@@ -37,6 +36,7 @@ def oauth(request):
 		if not User.objects.filter(uid=uid):
 			user = User(uid=uid, first_name=name, access_token=access_token)
 			user.save()
+		request.session['status'] = 'loggin_in'
 		return HttpResponseRedirect('/')
 	else:
 		text = 'Error: CSRF token could not be validated.'
