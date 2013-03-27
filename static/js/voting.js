@@ -7,10 +7,10 @@ $(document).ready(function() {
 
         if ($(this).hasClass('selected')) {
             var vote_action = 'recall-vote'
-            $.post('/ajax/thread/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
+            $.post('/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
                 if (isInt(response)) {
                     $('img.vote-up').removeAttr('src')
-                        .attr('src', 'images/vote-up-off.png')
+                        .attr('src', '{{ STATIC_URL }}img/vote-up-off.png')
                         .removeClass('selected');
                     $('div.vote-tally span.num').html(response);
                 }
@@ -18,10 +18,10 @@ $(document).ready(function() {
         } else {
 
             var vote_action = 'vote'
-            $.post('/ajax/thread/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
+            $.post('/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
                 if (isInt(response)) {
                     $('img.vote-up').removeAttr('src')
-                        .attr('src', 'images/vote-up-on.png')
+                        .attr('src', '{{ STATIC_URL }}img/vote-up-on.png')
                         .addClass('selected');
                     $('div.vote-tally span.num').html(response);
                 }
@@ -36,10 +36,10 @@ $(document).ready(function() {
 
         if ($(this).hasClass('selected')) {
             var vote_action = 'recall-vote'
-            $.post('/ajax/thread/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
+            $.post('/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
                 if (isInt(response)) {
                     $('img.vote-down').removeAttr('src')
-                        .attr('src', 'images/vote-down-off.png')
+                        .attr('src', '{{ STATIC_URL }}img/vote-down-off.png')
                         .removeClass('selected');
                     $('div.vote-tally span.num').html(response);
                 }
@@ -47,10 +47,10 @@ $(document).ready(function() {
         } else {
 
             var vote_action = 'vote'
-            $.post('/ajax/thread/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
+            $.post('/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
                 if (isInt(response)) {
                     $('img.vote-down').removeAttr('src')
-                        .attr('src', 'images/vote-down-on.png')
+                        .attr('src', '{{ STATIC_URL }}img/vote-down-on.png')
                         .addClass('selected');
                     $('div.vote-tally span.num').html(response);
                 }
