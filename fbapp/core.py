@@ -20,8 +20,8 @@ def watch(request, vid):
 		user = User.objects.get(uid=request.session['uid'])
 		uid = user.uid
 		video = Video.objects.get(vid=vid)
-		upvotes = video.userUpVotes.filter(id = uid).count()
-		downvotes = video.userDownVotes.filter(id = user.uid).count()
+		upvotes = video.userUpVotes.filter(uid = uid).count()
+		downvotes = video.userDownVotes.filter(uid = user.uid).count()
 	c = RequestContext(request, {'uid': uid, 'video':video, 'upvotes':upvotes, 'downvotes':downvotes})
 	return render_to_response('watch.html', c)
 
@@ -40,8 +40,8 @@ def vote(request):
    user=User.objects.get(uid=request.session['uid'])
    video = get_object_or_404(Video, pk=vid)
 
-   thisUserUpVote = video.userUpVotes.filter(id = user.uid).count()
-   thisUserDownVote = video.userDownVotes.filter(id = user.uid).count()
+   thisUserUpVote = video.userUpVotes.filter(uid = user.uid).count()
+   thisUserDownVote = video.userDownVotes.filter(uid = user.uid).count()
 
    if (vote_action == 'vote'):
       if (thisUserUpVote == 0) and (thisUserDownVote == 0):
