@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 	url(r'^oauth/$', 'fbapp.auth.oauth'),
 
 
+	url(r'^home/$', 'fbapp.core.home'),
 	url(r'^upload/$', 'fbapp.core.upload'),
 	url(r'^profile/$', 'fbapp.core.profile'),
 	
