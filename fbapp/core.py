@@ -7,14 +7,12 @@ import requests, urlparse, random, pdb
 
 
 def home(request):
-	if request.session.get('state'):
+	if request.session.get('uid'):
 		name = User.objects.get(uid=request.session.get('uid')).first_name
 		videos = Video.objects.all()
 		uid = request.session['uid']
-		c = RequestContext(request, {'uid': uid, 'videos':videos})
-		return render_to_response('home.html', c)
-	else:
-		return HttpResponseRedirect('/login')
+	c = RequestContext(request, {'uid': uid, 'videos':videos})
+	return render_to_response('home.html', c)
 
 
 def watch(request, vid):

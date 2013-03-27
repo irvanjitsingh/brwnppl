@@ -6,11 +6,10 @@ urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 
 	#auth
-	url(r'^login/$', 'fbapp.auth.authenticate'),
+	url(r'^$', 'fbapp.auth.authenticate'),
 	url(r'^oauth/$', 'fbapp.auth.oauth'),
 
 
-	url(r'^$', 'fbapp.core.home'),
 	url(r'^upload/$', 'fbapp.core.upload'),
 	url(r'^profile/$', 'fbapp.core.profile'),
 	
