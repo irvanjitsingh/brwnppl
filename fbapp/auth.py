@@ -28,7 +28,7 @@ def oauth(request):
 		token_request = requests.get('https://graph.facebook.com/oauth/access_token', params=app_info)
 		response = token_request.text
 		access_token = urlparse.parse_qs(response)['access_token'][0]
-		info = requests.get('https://graph.facebook.com/me', params={'access_token': access_token}).json()
+		info = requests.get('https://graph.facebook.com/me', params={'access_token': access_token}).json
 		uid = info['id']
 		name = info['first_name']
 		request.session['uid'] = uid
