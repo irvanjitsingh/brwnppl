@@ -15,7 +15,7 @@ def create(request):
 		try:
 			if User.objects.get(uid=uid):
 				try:
-					v = Video(vid=vid, user=User.objects.get(uid=uid), uri_v=uri_v, uri_i=uri_i, upvotes=0, downvotes=0, rating=0)
+					v = Video(vid=vid, user=User.objects.get(uid=uid), uri_v=uri_v, uri_i=uri_i)
 					v.save()
 					response.update({'response': 'success'})
 				except Exception:
