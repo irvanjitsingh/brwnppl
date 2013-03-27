@@ -8,8 +8,8 @@ from fbapp.models import User
 import requests, urlparse, random, pdb
 
 app_id = '222454974560719'
-app_secret = '1552e6e22a7ee7cce71585805af34a3d'
-redirect_uri = '/oauth/'
+app_secret = '18e694d08042bd899c01411369493ffd'
+redirect_uri = 'https://bpbhangra.herokuapp.com/oauth/'
 permissions = 'publish_stream'
 
 
@@ -17,7 +17,7 @@ permissions = 'publish_stream'
 def authenticate(request):
 	request.session['state'] = random.getrandbits(128)
 	dialog_redirect = (
-		'https://www.facebook.com/dialog/oauth?client_id= %(id)s&redirect_uri=%(uri)s&scope=%(permissions)s&state=%(state)s'
+		'https://www.facebook.com/dialog/oauth?client_id=%(id)s&redirect_uri=%(uri)s&scope=%(permissions)s&state=%(state)s'
 		% {'id': app_id, 'uri': redirect_uri, 'permissions':permissions, 'state': request.session.get('state') })
 	return HttpResponseRedirect(dialog_redirect)
 
