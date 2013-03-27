@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.context_processors import csrf
 from fbapp.models import User, Video
@@ -17,9 +17,12 @@ def home(request):
 
 def watch(request, vid):
 	if request.session.get('uid'):
-		uid = request.session['uid']
+		user = User.objects.get(uid=request.session['uid'])
+		uid = user.uid
 		video = Video.objects.get(vid=vid)
-	c = RequestContext(request, {'uid': uid, 'video':video})
+		upvotes = video.userUpVotes.filter(id = uid).count()
+		downvotes = video.userDownVotes.filter(id = user.uid).count()
+	c = RequestContext(request, {'uid': uid, 'video':video, 'upvotes':upvotes, 'downvotes':downvotes})
 	return render_to_response('watch.html', c)
 
 
@@ -31,18 +34,39 @@ def upload(request):
 
 
 def vote(request):
-	response = {}
-	if request.method == 'POST':
-		try:
-			video = Video.objects.get(vid=vid)
-		except Exception:
-			response.update({'response': 'failed'})
-			return HttpResponse(response)
-		if request.POST['type'] == 'up':
-			video.upvotes = video.upvotes + 1
-		else:
-			video.upvotes = video.upvotes - 1
-		video.save()
+   vid = int(request.POST.get('vid'))
+   vote_type = request.POST.get('type')
+   vote_action = request.POST.get('action')
+   user=User.objects.get(uid=request.session['uid'])
+   video = get_object_or_404(Video, pk=vid)
+
+   thisUserUpVote = video.userUpVotes.filter(id = user.uid).count()
+   thisUserDownVote = video.userDownVotes.filter(id = user.uid).count()
+
+   if (vote_action == 'vote'):
+      if (thisUserUpVote == 0) and (thisUserDownVote == 0):
+         if (vote_type == 'up'):
+            video.userUpVotes.add(user)
+         elif (vote_type == 'down'):
+            video.userDownVotes.add(user)
+         else:
+            return HttpResponse('error-unknown vote type')
+      else:
+         return HttpResponse('error - already voted', thisUserUpVote, thisUserDownVote)
+   elif (vote_action == 'recall-vote'):
+      if (vote_type == 'up') and (thisUserUpVote == 1):
+         video.userUpVotes.remove(user)
+      elif (vote_type == 'down') and (thisUserDownVote ==1):
+         video.userDownVotes.remove(user)
+      else:
+         return HttpResponse('error - unknown vote type or no vote to recall')
+   else:
+      return HttpResponse('error - bad action')
+
+
+   num_votes = video.userUpVotes.count() - video.userDownVotes.count()
+
+   return HttpResponse(num_votes)
 
 
 # def rate(request, vid, rating):
