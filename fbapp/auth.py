@@ -15,6 +15,7 @@ permissions = 'publish_stream'
 
 @csrf_exempt
 def authenticate(request):
+	print 'entered auth'
 	request.session['state'] = random.getrandbits(128)
 	dialog_redirect = (
 		'https://www.facebook.com/dialog/oauth?client_id= %(id)s&redirect_uri=%(uri)s&scope=%(permissions)s&state=%(state)s'
