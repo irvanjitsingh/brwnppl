@@ -7,7 +7,7 @@ import requests, urlparse, random, pdb
 
 
 def home(request):
-	if request.session.get('uid') and request.session.get('status')
+	if request.session.get('uid') and request.session.get('status'):
 		if request.session['status'] == 'logged_in':
 			name = User.objects.get(uid=request.session.get('uid')).first_name
 			videos = Video.objects.all()
