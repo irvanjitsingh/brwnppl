@@ -7,7 +7,7 @@ import requests, urlparse, random, pdb
 
 
 def home(request):
-	if request.session.get('uid'):
+	if request.session.get('state'):
 		name = User.objects.get(uid=request.session.get('uid')).first_name
 		videos = Video.objects.all()
 		uid = request.session['uid']
