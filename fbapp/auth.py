@@ -9,7 +9,7 @@ import requests, urlparse, random, pdb
 
 app_id = '222454974560719'
 app_secret = '1552e6e22a7ee7cce71585805af34a3d'
-redirect_uri = 'https://bpbhangra.herokuapp.com/oauth/'
+redirect_uri = '/oauth/'
 permissions = 'publish_stream'
 
 
