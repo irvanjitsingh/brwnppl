@@ -8,11 +8,6 @@
 		<source src="{{ video.uri_v }}" type="video/webm">
 	</video>
 	<br>
-<div id="{{ video.vid }}" class="video">
-<div class="btn-group" data-toggle="buttons-radio">
-  <button type="button" class="btn btn-primary">Vote Up</button>
-  <button type="button" class="btn btn-primary">Vote Down</button>
-  <div class="vote-buttons">
         {% ifequal upvotes 0 %}
         <img class="vote-up" src = "{{ STATIC_URL }}img/vote-up-off.png" title="Vote this thread UP. (click again to undo)" />
         {% else %}
@@ -23,7 +18,6 @@
         {% else %}
         <img class="vote-down selected" src = "{{ STATIC_URL }}img/vote-down-on.png" title="Vote this thread DOWN if it is innapropriate or incorrect. (click again to undo)" />
         {% endifequal %}
-   </div>
 </center>
 </div>
 </div>
