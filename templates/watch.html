@@ -9,6 +9,7 @@
 	</video>
 	<div id="vid"  style="display:none">{{ video.vid }}</div>
 	<br>
+	<div class="vote-buttons">
         {% ifequal upvotes 0 %}
         <img class="vote-up" src = "{{ STATIC_URL }}img/vote-up-off.png" title="Vote this thread UP. (click again to undo)" />
         {% else %}
@@ -19,6 +20,7 @@
         {% else %}
         <img class="vote-down selected" src = "{{ STATIC_URL }}img/vote-down-on.png" title="Vote this thread DOWN if it is innapropriate or incorrect. (click again to undo)" />
         {% endifequal %}
+    </div>
 </center>
 </div>
 
