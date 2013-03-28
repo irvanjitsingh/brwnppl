@@ -7,6 +7,7 @@
 	<video controls="" name="media" post="{{ video.uri_i }}">
 		<source src="{{ video.uri_v }}" type="video/webm">
 	</video>
+	<div id="vid"  style="display:none">{{ video.vid }}</div>
 	<br>
         {% ifequal upvotes 0 %}
         <img class="vote-up" src = "{{ STATIC_URL }}img/vote-up-off.png" title="Vote this thread UP. (click again to undo)" />
@@ -20,8 +21,5 @@
         {% endifequal %}
 </center>
 </div>
-</div>
-</div>
-
 
 {% endblock %}

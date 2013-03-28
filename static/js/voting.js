@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $('div.vote-buttons img.vote-up').click(function() {
 
-        var id = {{ video.vid }};
+        var id = parseInt($("#vid").text());
         var vote_type = 'up';
 
         if ($(this).hasClass('selected')) {
