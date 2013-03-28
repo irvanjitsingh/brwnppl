@@ -34,7 +34,7 @@ def upload(request):
 
 
 def vote(request):
-   vid = int(request.POST.get('vid'))
+   vid = int(request.POST.get('id'))
    vote_type = request.POST.get('type')
    vote_action = request.POST.get('action')
    out = "THIS IS THE VOTE TYPE" + vote_type
