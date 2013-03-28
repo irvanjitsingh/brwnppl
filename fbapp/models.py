@@ -1,4 +1,5 @@
 from django.db import models
+test = 0
 
 
 class User(models.Model):
