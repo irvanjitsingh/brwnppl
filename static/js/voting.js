@@ -4,7 +4,8 @@ $(document).ready(function() {
 
         var vid = parseInt($("#vid").text());
         var vote_type = 'up';
-
+        console.log(vid)
+        console.log(vote_type)
         if ($(this).hasClass('selected')) {
             var vote_action = 'recall-vote'
             $.post('/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
@@ -18,7 +19,9 @@ $(document).ready(function() {
         } else {
 
             var vote_action = 'vote'
+            console.log('Button pressed')
             $.post('/vote', {id:vid, type:vote_type, action:vote_action}, function(response) {
+                console.log('did post')
                 if (isInt(response)) {
                     $('img.vote-up').removeAttr('src')
                         .attr('src', '{{ STATIC_URL }}img/vote-up-on.png')
