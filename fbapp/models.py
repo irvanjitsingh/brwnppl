@@ -17,7 +17,7 @@ class Video(models.Model):
 	uri_v = models.CharField(max_length=300)
 	uri_i = models.CharField(max_length=300)
 	userUpVotes = models.ManyToManyField(User, blank=True, related_name='videoUpVotes')
-	userUpVotes = models.ManyToManyField(User, blank=True, related_name='videoDownVotes')
+	userDownVotes = models.ManyToManyField(User, blank=True, related_name='videoDownVotes')
 
 	def __unicode__(self):
 		return self.name
