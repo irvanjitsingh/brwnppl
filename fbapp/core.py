@@ -37,6 +37,8 @@ def vote(request):
    vid = int(request.POST.get('vid'))
    vote_type = request.POST.get('type')
    vote_action = request.POST.get('action')
+   out = "THIS IS THE VOTE TYPE" + vote_type
+   print out
    user=User.objects.get(uid=request.session['uid'])
    video = get_object_or_404(Video, pk=vid)
 
